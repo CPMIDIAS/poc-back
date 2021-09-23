@@ -1,0 +1,19 @@
+version: "3.4"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: poc-back
+    networks:
+      - api
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "4444:4444"
+
+networks:
+  api:
+    name: poc-back
+    driver: bridge
