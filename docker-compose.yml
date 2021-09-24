@@ -1,19 +1,44 @@
 version: "3.4"
 
+x-networks-service-template: &networks
+  networks:
+    - api
+
+x-env-service-template: &environment
+  POSTGRES_DB: poc-back-db
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_HOST: db
+
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile.dev
     container_name: poc-back
-    networks:
-      - api
+    <<: *networks
     volumes:
       - ./src:/app/src
     ports:
       - "4444:4444"
+    depends_on:
+      - db
+    environment:
+      <<: *environment
+
+  db:
+    image: postgres:12-alpine3.14
+    command: -c fsync=off --client-min-messages=warning
+    <<: *networks
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      <<: *environment
 
 networks:
   api:
     name: poc-back
     driver: bridge
+
+volumes:
+  db:
