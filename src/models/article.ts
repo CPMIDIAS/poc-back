@@ -9,6 +9,8 @@ import {
 } from "typeorm";
 import { User } from "./user";
 
+// adding an exclamation mark (!) to the properties because the properties are not assigned in the
+// constructor and can have the value undefined.
 @Entity()
 export class Article {
   @PrimaryGeneratedColumn()
@@ -30,6 +32,9 @@ export class Article {
   @ManyToOne((_type) => User, (user: User) => user.articles)
   @JoinColumn()
   user!: User;
+
+  @Column()
+  publishedAt!: Date;
 
   @CreateDateColumn()
   createdAt!: Date;

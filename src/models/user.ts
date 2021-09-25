@@ -14,13 +14,15 @@ export class User {
   id!: number;
 
   @Column()
-  firstName!: string;
-
-  @Column()
-  lastName!: string;
+  name!: string;
 
   @Column()
   email!: string;
+
+  @Column({
+    type: "text",
+  })
+  description!: string;
 
   @OneToMany((_type) => Article, (article: Article) => article.user)
   articles!: Array<Article>;
