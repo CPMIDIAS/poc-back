@@ -27,3 +27,18 @@ Os requisitos deste sistema são:
 4. Tela de login com autenticação.
 5. Possibilidade de extração de relatórios com número de postagem  por repórter.
 
+## Execução local
+
+Esta PoC esta configurada em docker e com este [Makefile](./Makefile) que "resume" os comandos do
+docker-compose.
+
+Para subir o projeto:
+```bash
+$ make up
+```
+
+Executar o lint (precisa do comando anterior em execução):
+```bash
+# precisa de outro terminal aberto executando o 'make up'
+$ make lint
+```
