@@ -37,7 +37,7 @@ services:
 
 networks:
   api:
-    name: poc-back
+    #name: poc-back
     driver: bridge
 
 volumes:
