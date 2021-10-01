@@ -7,6 +7,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { Article } from "./article";
+import { IsEmail, MinLength, MaxLength } from "class-validator";
 
 export enum UserRole {
     ADMIN = "admin",
@@ -20,9 +21,16 @@ export class User {
   id!: number;
 
   @Column()
+  @MinLength(5, {
+    message: 'Name is too short',
+  })
+  @MaxLength(30, {
+    message: 'Name is too long',
+  })
   name!: string;
 
   @Column({ unique: true })
+  @IsEmail()
   email!: string;
 
   @Column({ type: "enum", enum: UserRole, default: UserRole.READER })
