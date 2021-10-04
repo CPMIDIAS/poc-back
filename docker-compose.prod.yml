@@ -1,0 +1,44 @@
+version: '3.5'
+
+x-networks-service-template: &networks
+  networks:
+    - api
+
+x-env-service-template: &environment
+  POSTGRES_DB: poc-back-db
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_HOST: db-prod
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    container_name: poc-back-prod
+    <<: *networks
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db-prod
+    environment:
+      <<: *environment
+
+  db-prod:
+    image: postgres:12-alpine3.14
+    command: -c fsync=off --client-min-messages=warning
+    <<: *networks
+    volumes:
+      - db-prod:/var/lib/postgresql/data
+    environment:
+      <<: *environment
+
+networks:
+  api:
+    name: poc-back-prod
+    driver: bridge
+
+volumes:
+  db-prod:
