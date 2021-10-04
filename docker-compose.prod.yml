@@ -5,6 +5,7 @@ x-networks-service-template: &networks
     - api
 
 x-env-service-template: &environment
+  PORT:8000
   POSTGRES_DB: poc-back-db
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
