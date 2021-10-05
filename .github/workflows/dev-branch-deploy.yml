@@ -25,7 +25,7 @@ jobs:
           echo "git pulling project";
           git pull;
           echo "executing docker-compose on background";
-          docker-compose -f docker-compose.prod.yml up --build app &> ~/api.docker-compose.log &;
+          docker-compose -f docker-compose.prod.yml up --build app &> ~/api.docker-compose.log &
           echo "Finished, bye bye :)"
 
 
