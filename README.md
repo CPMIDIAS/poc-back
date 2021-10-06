@@ -42,3 +42,13 @@ Executar o lint (precisa do comando anterior em execução):
 # precisa de outro terminal aberto executando o 'make up'
 $ make lint
 ```
+
+## Configuração do prisma
+
+Necessario o arquivo um arquivo .env com o endereço do banco para que o prisma possa trabalhar.
+
+Modelo do arquivo .env:
+
+```
+DATABASE_URL="postgresql://postgres:postgres@172.19.0.2:5432/poc-back-db?schema=public"
+```

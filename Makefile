@@ -5,10 +5,10 @@ endif
 MAKEFLAGS += -s
 
 up:
-	docker-compose up --build app
+	docker-compose -f docker-compose.dev.yml up --build app
 
 lint:
-	docker-compose exec app npx eslint . --ext .js,.jsx,.ts,.tsx
+	docker-compose -f docker-compose.dev.yml exec app npx eslint . --ext .js,.jsx,.ts,.tsx
 
 exec:
-	docker-compose exec app $(filter-out $@, $(MAKECMDGOALS))
+	docker-compose -f docker-compose.dev.yml exec app $(filter-out $@, $(MAKECMDGOALS))

@@ -1,3 +1,4 @@
+import "dotenv/config";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import express, { Application, Request, Response, json, NextFunction } from "express";
