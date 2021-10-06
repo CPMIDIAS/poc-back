@@ -33,9 +33,6 @@ export class Article {
   @JoinColumn()
   user!: User;
 
-  @Column()
-  publishedAt!: Date;
-
   @CreateDateColumn()
   createdAt!: Date;
 

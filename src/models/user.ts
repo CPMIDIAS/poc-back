@@ -25,8 +25,11 @@ export class User {
   @Column({ unique: true })
   email!: string;
 
+  @Column()
+  password!: string;
+
   @Column({ type: "enum", enum: UserRole, default: UserRole.READER })
-  role!: UserRole
+  role!: UserRole;
 
   @Column({ type: "text", nullable: true })
   description!: string;
