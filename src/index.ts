@@ -17,13 +17,7 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use(express.static("public"));
 
-const allowedOrigins = ["*"];
-
-const options: cors.CorsOptions = {
-  origin: allowedOrigins,
-};
-
-app.use(cors(options));
+app.use(cors());
 
 app.use(
   "/docs",
