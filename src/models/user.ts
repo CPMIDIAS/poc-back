@@ -47,4 +47,13 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt!: Date;
+
+  constructor(params?: { name?: string, email?: string, role?: UserRole, description?: string }) {
+    if(params) {
+      if(params.name)        this.name = params.name;
+      if(params.email)       this.email = params.email;
+      if(params.role)        this.role = params.role;
+      if(params.description) this.description = params.description;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import express from "express";
 import UserController from "../controllers/user.controller";
-import {UserRepository} from "../repositories/user.repository";
-import {UserService} from "../service/user.service";
+import { UserRepository } from "../repositories/user.repository";
+import { UserService } from "../service/user.service";
 
 const router = express.Router();
 const userRepository = new UserRepository();
@@ -16,7 +16,7 @@ router.get("/", async (_req, res) => {
 router.post("/", async (req, res) => {
   const controller = new UserController(userService);
   const response = await controller.createUser(req.body);
-  return res.send(response);
+  return res.status(response.status).send(response.body);
 });
 
 router.get("/:id", async (req, res) => {

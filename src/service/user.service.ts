@@ -1,8 +1,8 @@
 import { User } from "../models";
 import { IUserPayload, UserRepository } from "../repositories/user.repository";
 import { validate } from "class-validator";
-import { badRequest, ok, serverError } from "../helpers/http.helper";
-import {HttpResponse} from "../helpers/http";
+import { badRequest, okRequest, serverError } from "../helpers/http.helper";
+import { HttpResponse } from "../helpers/http";
 
 export class UserService {
   private readonly userRepository: UserRepository
@@ -22,21 +22,13 @@ export class UserService {
 
   async createUser(payload: IUserPayload): Promise<HttpResponse> {
     try {
-      const user = new User()
-      user.name = payload.name
-      user.email = payload.email
+      const user = new User(payload)
       const userErrors = await validate(user)
 
-      if(userErrors.length > 0) {
-        const error = new Error(userErrors[0].constraints?.toString());
-        console.log(userErrors)
-        console.log(userErrors[0].constraints?.toString())
-        console.log(error)
-        return badRequest(error)
-      }
+      if(userErrors.length > 0) return badRequest(userErrors)
 
       const userRecord = await this.userRepository.create(payload)
-      return ok(userRecord)
+      return okRequest(userRecord)
     } catch(e) {
       return serverError(new Error('error'))
     }

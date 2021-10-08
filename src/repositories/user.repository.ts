@@ -14,7 +14,7 @@ export class UserRepository {
 
   async create(payload: IUserPayload): Promise<User> {
     const userRepository = getRepository(User);
-    const user = new User();
+    const user = new User(); // pode aplicar o payload aki
     return userRepository.save({
       ...user,
       ...payload,
