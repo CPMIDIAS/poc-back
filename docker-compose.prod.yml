@@ -26,6 +26,8 @@ services:
     <<: *networks
     volumes:
       - db-prod:/var/lib/postgresql/data
+    env_file:
+      - ./envs/prod.env
 
 networks:
   api:
