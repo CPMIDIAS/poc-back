@@ -13,6 +13,7 @@ services:
     <<: *networks
     volumes:
       - ./src:/app/src
+      - ./prisma:/app/prisma
     ports:
       - "4444:4444"
     depends_on:
