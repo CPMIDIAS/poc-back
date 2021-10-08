@@ -7,6 +7,7 @@ import swaggerUi from "swagger-ui-express";
 
 import Router from "./routes";
 import dbConfig from "./config/database";
+import cors from "cors";
 
 const PORT = process.env.PORT || 4444;
 
@@ -15,6 +16,8 @@ const app: Application = express();
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(express.static("public"));
+
+app.use(cors());
 
 app.use(
   "/docs",
