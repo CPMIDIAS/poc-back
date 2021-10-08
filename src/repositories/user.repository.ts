@@ -4,6 +4,7 @@ import { User } from "../models";
 export interface IUserPayload {
   name: string;
   email: string;
+  password: string;
 }
 
 export const getUsers = async (): Promise<Array<User>> => {
