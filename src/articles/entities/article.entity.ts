@@ -8,6 +8,9 @@ export class Article {
   @Column()
   public title: string;
 
+  @Column({ nullable: true })
+  public subtitle: string;
+
   @Column('text')
   public content: string;
 }
