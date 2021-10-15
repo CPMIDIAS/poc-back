@@ -14,7 +14,7 @@ export default class UserController {
   }
 
   @Get("/")
-  public async getUsers(): Promise<Array<User>> {
+  public async getUsers(): Promise<HttpResponse> {
     return await this.userService.getUsers();
   }
 
@@ -24,7 +24,7 @@ export default class UserController {
   }
 
   @Get("/:id")
-  public async getUser(@Path() id: string): Promise<User | null> {
+  public async getUser(@Path() id: string): Promise<HttpResponse> {
     return this.userService.getUser(Number(id));
   }
 }

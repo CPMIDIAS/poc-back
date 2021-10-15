@@ -10,7 +10,7 @@ const userService = new UserService(userRepository);
 router.get("/", async (_req, res) => {
   const controller = new UserController(userService);
   const response = await controller.getUsers();
-  return res.send(response);
+  return res.status(response.status).send(response.body);
 });
 
 router.post("/", async (req, res) => {
@@ -22,8 +22,7 @@ router.post("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const controller = new UserController(userService);
   const response = await controller.getUser(req.params.id);
-  if (!response) res.status(404).send({ message: "No user found" });
-  return res.send(response);
+  return res.status(response.status).send(response.body);
 });
 
 export default router;

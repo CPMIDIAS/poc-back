@@ -1,7 +1,7 @@
 import { User } from "../models";
 import { IUserPayload, UserRepository } from "../repositories/user.repository";
 import { validate } from "class-validator";
-import { badRequest, createdRequest, serverError } from "../helpers/http.helper";
+import { badRequest, createdRequest, NotFoundRequest, okRequest, serverError } from "../helpers/http.helper";
 import { HttpResponse } from "../helpers/http";
 import { validationErrorParser } from "../helpers/validation.helper";
 import { QueryFailedError } from "typeorm";
@@ -13,13 +13,15 @@ export class UserService {
     this.userRepository = userRepository
   }
 
-  async getUsers(): Promise<Array<User>> {
-    return await this.userRepository.getAll();
+  async getUsers(): Promise<HttpResponse> {
+    const users = await this.userRepository.getAll();
+    return okRequest(users)
   }
 
-  async getUser(id: number): Promise<User | null> {
+  async getUser(id: number): Promise<HttpResponse> {
     const user = await this.userRepository.get(id);
-    return user;
+    if (!user) return NotFoundRequest('user');
+    return okRequest(user);
   }
 
   async createUser(payload: IUserPayload): Promise<HttpResponse> {
