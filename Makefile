@@ -12,3 +12,6 @@ lint:
 
 exec:
 	docker-compose -f docker-compose.dev.yml exec poc-back $(filter-out $@, $(MAKECMDGOALS))
+
+pgadmin:
+	docker-compose -f docker-compose.dev.yml up pgadmin-back
