@@ -14,7 +14,7 @@ async function bootstrap() {
 
   // Swagger configuration
   const config = new DocumentBuilder()
-    .setTitle('POC-API')
+    .setTitle('PoC-Back')
     .setDescription('Simple API Blog for studies purpose')
     .setVersion('1.0')
     .addTag('poc')

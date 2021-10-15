@@ -1,9 +1,8 @@
 {
-  "name": "poc-api",
-  "version": "0.0.1",
+  "name": "poc-back",
+  "version": "1.0.0",
   "description": "Simple API Blog for studies purpose",
-  "author": "Eugenio Augusto Jimenes",
-  "private": true,
+  "author": "CPMIDIAS",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",

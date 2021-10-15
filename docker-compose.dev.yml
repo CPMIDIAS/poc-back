@@ -5,49 +5,50 @@ x-networks-service-template: &networks
     - api
 
 services:
-  poc-api:
+  poc-back:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    container_name: poc-api-container
+    container_name: poc-back-container
     <<: *networks
     volumes:
-      - ./src:/poc-api/src
-      - ./envs:/poc-api/envs
-      - ./test:/poc-api/test
+      - ./src:/poc-back/src
+      - ./envs:/poc-back/envs
+      - ./test:/poc-back/test
     ports:
       - "3000:3000"
     depends_on:
-      - db-api
+      - db-back
 
-  db-api:
-    container_name: db-api-container
+  db-back:
+    container_name: db-back-container
     image: postgres:12-alpine3.14
+    command: -c fsync=off --client-min-messages=warning
     <<: *networks
     volumes:
-      - db-vol:/var/lib/postgresql/data
+      - db-back-vol:/var/lib/postgresql/data
     env_file:
-      - ./envs/docker.env
+      - ./envs/docker-dev.env
 
-  pgadmin:
+  pgadmin-back:
     image: dpage/pgadmin4
-    container_name: pgadmin-container
+    container_name: pgadmin-back-container
     <<: *networks
     ports:
       - "15432:80"
     depends_on:
-      - db-api
+      - db-back
     volumes:
-      - pgadmin-vol:/var/lib/pgadmin
+      - pgadmin-back-vol:/var/lib/pgadmin
     env_file:
-      - ./envs/docker.env
+      - ./envs/docker-dev.env
 
 networks:
   api:
-    name: poc-api-network
+    name: poc-back-network
     driver: bridge
 
 volumes:
-  db-vol:
-  pgadmin-vol:
+  db-back-vol:
+  pgadmin-back-vol:
 

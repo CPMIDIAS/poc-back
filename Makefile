@@ -5,10 +5,10 @@ endif
 MAKEFLAGS += -s
 
 up:
-	docker-compose -f docker-compose.dev.yml up --build poc-api
+	docker-compose -f docker-compose.dev.yml up --build poc-back
 
 lint:
-	docker-compose -f docker-compose.dev.yml exec poc-api npx eslint "{src,apps,libs,test}/**/*.ts"
+	docker-compose -f docker-compose.dev.yml exec poc-back npx eslint "{src,apps,libs,test}/**/*.ts"
 
 exec:
-	docker-compose -f docker-compose.dev.yml exec poc-api $(filter-out $@, $(MAKECMDGOALS))
+	docker-compose -f docker-compose.dev.yml exec poc-back $(filter-out $@, $(MAKECMDGOALS))

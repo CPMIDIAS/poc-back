@@ -1,73 +1,54 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# PoC back end em Node.js e TypeScript
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+[![License](https://img.shields.io/badge/License-MIT-lightgray)](/LICENSE)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-lightblue)](/code_of_conduct.md)
+![love](https://img.shields.io/badge/Code%20with-%F0%9F%96%A4-lightgreen)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Repositório destinado à uma aplicação simples - *Proof of Concept* - para aprendizado da linguagem
+TypeScript com Node.js.
 
-## Description
+## Contexto
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A proposta desta PoC é desenvolver um blog com autenticação de repórteres (*user*) e criação de
+reportagens (*article*).
+Os requisitos deste sistema são:
+1. Página Inicial com a listagem de todas as postagens realizadas por  todos os repórteres.
+2. Página para cadastro das notícias com as seguintes informações:
+    - Título.
+    - Linha fina.
+    - Imagem
+    - Texto da reportagem.
+    - Autor.
+    - Data da postagem.
+3. Haverá também uma página de Administração (acesso com autenticação) que poderá:
+    - Cadastrar novos repórteres para usuários com permissão de administrador
+    - Criar ou editar uma reportagem
+    - Publicar uma reportagem
+4. Tela de login com autenticação.
+5. Possibilidade de extração de relatórios com número de postagem  por repórter.
 
-## Installation
+## Execução local
 
+Esta PoC esta configurada em docker e com este [Makefile](./Makefile) que "resume" os comandos do
+docker-compose.
+
+Para subir o projeto:
 ```bash
-$ npm install
+$ make up
 ```
 
-## Running the app
-
+Executar o lint (precisa do comando anterior em execução):
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# precisa de outro terminal aberto executando o 'make up'
+$ make lint
 ```
 
-## Test
+## Configuração do prisma
 
-```bash
-# unit tests
-$ npm run test
+Necessario o arquivo um arquivo .env com o endereço do banco para que o prisma possa trabalhar.
 
-# e2e tests
-$ npm run test:e2e
+Modelo do arquivo .env:
 
-# test coverage
-$ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+DATABASE_URL="postgresql://postgres:postgres@172.19.0.2:5432/poc-back-db?schema=public"
+```
