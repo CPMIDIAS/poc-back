@@ -5,34 +5,34 @@ x-networks-service-template: &networks
     - api
 
 services:
-  app:
+  poc-back:
     build:
       context: .
       dockerfile: Dockerfile.prod
-    container_name: poc-back-prod
+    container_name: poc-back-prod-container
     <<: *networks
     volumes:
-      - ./src:/app/src
+      - ./src:/poc-back/src
+      - ./envs:/poc-back/envs
+      - ./test:/poc-back/test
     ports:
       - "8000:8000"
     depends_on:
-      - db-prod
-    env_file:
-      - ./envs/prod.env
+      - db-back-prod
 
-  db-prod:
+  db-back-prod:
+    container_name: db-back-prod-container
     image: postgres:12-alpine3.14
-    command: -c fsync=off --client-min-messages=warning
     <<: *networks
     volumes:
-      - db-prod:/var/lib/postgresql/data
+      - db-back-prod-vol:/var/lib/postgresql/data
     env_file:
-      - ./envs/prod.env
+      - ./envs/docker-prod.env
 
 networks:
   api:
-    name: poc-back-prod
+    name: poc-back-prod-network
     driver: bridge
 
 volumes:
-  db-prod:
+  db-back-prod-vol:
