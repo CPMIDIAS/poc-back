@@ -16,7 +16,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.RSA_KEY }}
         script: |
-          for proc in $(pgrep "[d]ocker-compose");
+          for proc in $(pgrep -f "docker-compose.prod");
           do
           echo "Killing process number $proc";
           kill $proc;

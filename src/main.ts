@@ -34,6 +34,9 @@ async function bootstrap() {
   // Requirement to use class-validator as pipe validator
   app.useGlobalPipes(new ValidationPipe());
 
+  // enable cors for all domains
+  app.enableCors();
+
   const configService = app.get(ConfigService);
   await app.listen(configService.get('PORT'));
 }
