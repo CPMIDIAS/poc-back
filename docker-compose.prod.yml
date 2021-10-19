@@ -5,16 +5,12 @@ x-networks-service-template: &networks
     - api
 
 services:
-  poc-back:
+  poc-back-prod:
     build:
       context: .
       dockerfile: Dockerfile.prod
     container_name: poc-back-prod-container
     <<: *networks
-    volumes:
-      - ./src:/poc-back/src
-      - ./envs:/poc-back/envs
-      - ./test:/poc-back/test
     ports:
       - "8000:8000"
     depends_on:
