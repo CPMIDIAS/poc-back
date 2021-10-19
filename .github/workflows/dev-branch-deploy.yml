@@ -23,7 +23,7 @@ jobs:
           echo "git pulling project";
           git pull;
           echo "executing docker-compose on background";
-          docker-compose -f docker-compose.prod.yml up --build poc-back-prod &> ~/api.docker-compose.log &
+          nohup docker-compose -f docker-compose.prod.yml up --build poc-back-prod &> ~/api.docker-compose.log &
           echo "Finished, bye bye :)"
 
 
