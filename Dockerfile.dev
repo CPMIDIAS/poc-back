@@ -1,10 +1,14 @@
 FROM node:lts-alpine3.14
 
-WORKDIR /app
+WORKDIR /poc-back
 COPY package*.json ./
+RUN true
+COPY tsconfig*.json ./
+RUN true
+COPY nest-cli.json ./
+RUN true
 RUN npm install
-COPY . .
 
-EXPOSE 4444
+EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start:dev"]
