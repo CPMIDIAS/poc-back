@@ -4,12 +4,12 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
-import getLogLevels from './logger/getLogLevels';
-import { SwaggerDocumentOptions } from './utils/SwaggerDocumentOptions';
+import { GetLogLevel } from './middleware/logger/get-log-level';
+import { SwaggerDocumentOptions } from './utils/swagger-document-options';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: getLogLevels(process.env.NODE_ENV === 'production')
+    logger: GetLogLevel(process.env.NODE_ENV === 'production'),
   });
 
   // Swagger configuration
@@ -19,11 +19,8 @@ async function bootstrap() {
     .setVersion('1.0')
     .addTag('poc')
     .build();
-  const options: SwaggerDocumentOptions =  {
-    operationIdFactory: (
-      controllerKey: string,
-      methodKey: string
-    ) => methodKey
+  const options: SwaggerDocumentOptions = {
+    operationIdFactory: (controllerKey: string, methodKey: string) => methodKey,
   };
   const document = SwaggerModule.createDocument(app, config, options);
   SwaggerModule.setup('docs', app, document);

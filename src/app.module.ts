@@ -3,11 +3,11 @@ import * as Joi from 'joi';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ArticlesModule } from './articles/articles.module';
-import { DatabaseModule } from './database/database.module';
-import { UsersModule } from './users/users.module';
-import { AuthenticationModule } from './authentication/authentication.module';
-import LogsMiddleware from './logger/logs.middleware';
+import { ArticleModule } from './controllers/article/article.module';
+import { DatabaseModule } from './infrastructure/database/database.module';
+import { UserModule } from './controllers/user/user.module';
+import { AuthenticationModule } from './controllers/authentication/authentication.module';
+import { LogMiddleware } from './middleware/logger/log.middleware';
 
 @Module({
   imports: [
@@ -25,8 +25,8 @@ import LogsMiddleware from './logger/logs.middleware';
       }),
     }),
     DatabaseModule,
-    ArticlesModule,
-    UsersModule,
+    ArticleModule,
+    UserModule,
     AuthenticationModule,
   ],
   controllers: [AppController],
@@ -34,8 +34,6 @@ import LogsMiddleware from './logger/logs.middleware';
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LogsMiddleware)
-      .forRoutes('*');
+    consumer.apply(LogMiddleware).forRoutes('*');
   }
 }
